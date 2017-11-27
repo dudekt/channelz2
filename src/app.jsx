@@ -2,11 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import _ from 'lodash'
 
-import { Test } from './components/test'
-
-import style from './styles/main.css'
-
-console.log(style)
+import Test from 'Components/test'
+import style from 'Styles/main.css'
 
 ReactDOM.render(
     <Test />,

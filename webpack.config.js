@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/index',
+    entry: './src/app',
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist')
@@ -38,6 +38,10 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['.js', '.jsx', '.css']
+        extensions: ['.js', '.jsx', '.css'],
+        alias: {
+            Components: path.resolve(__dirname, 'src/components/'),
+            Styles: path.resolve(__dirname, 'src/styles/')
+          }
     }
 }
