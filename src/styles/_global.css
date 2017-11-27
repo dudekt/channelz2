@@ -1,0 +1,9 @@
+$background: #FF0000;
+
+body {
+    background-color: $background;
+}
+
+.test {
+    border: 4px dashed deeppink;
+}
