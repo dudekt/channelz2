@@ -1,7 +1,11 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
-    entry: './src/app',
+    entry: [
+        'react-hot-loader/patch',
+        './src/app'
+    ],
     output: {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist')
@@ -13,6 +17,7 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
+                        plugins: ['react-hot-loader/babel'],
                         presets: ['@babel/preset-react']
                     }
                 }
@@ -22,6 +27,9 @@ module.exports = {
                 exclude: /node_modules/,
                 use: [{
                         loader: 'style-loader',
+                        options: {
+                            hmr: true,
+                        }
                     },
                     {
                         loader: 'css-loader',
@@ -42,6 +50,14 @@ module.exports = {
         alias: {
             Components: path.resolve(__dirname, 'src/components/'),
             Styles: path.resolve(__dirname, 'src/styles/')
-          }
-    }
+        }
+    },
+    devServer: {
+        contentBase: './dist',
+        hot: true
+    },
+    plugins: [
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
+    ],
 }

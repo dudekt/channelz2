@@ -1,9 +1,6 @@
-$background: #F4F4F4;
+$background: red;
 
 body {
     background-color: $background;
-}
-
-.test {
-    border: 4px dashed deeppink;
+    border: 10px solid red;
 }
