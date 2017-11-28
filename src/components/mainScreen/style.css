@@ -17,8 +17,6 @@ $panelHeight: 32px;
     justify-content: center;
 
     .mainWindow {
-        outline: 1px solid green;
-
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
@@ -33,6 +31,8 @@ $panelHeight: 32px;
     }
 
     .top {
+        outline: 2px solid #D4D4D4;
+
         align-content: center;
         align-self: center;
         display: flex;
@@ -43,9 +43,10 @@ $panelHeight: 32px;
         width: 100%;
 
         .brick {
-            outline: 1px dotted red;
+            outline: 1px dashed #D4D4D4;
 
             align-items: center;
+            color: rgba(0, 0, 0, 0.2);
             display: flex;
             flex-grow: 0;
             flex-shrink: 0;
@@ -57,8 +58,6 @@ $panelHeight: 32px;
     }
 
     .bottom {
-        outline: 1px solid deeppink;
-
         align-self: flex-end;
         flex: 0 0 auto;
         height: $panelHeight;

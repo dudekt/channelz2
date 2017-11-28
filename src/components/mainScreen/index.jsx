@@ -19,12 +19,16 @@ const generateLevel = (levelSize) => {
         let totalBricks = levelWidth * levelHeight
 
 
-        let brickDiv = <div
-            className={style['brick']}
-        >
-        </div>
+        
 
         for (let i = 0; i < totalBricks; i++) {
+            let brickDiv = <div
+                className={style['brick']}
+            >
+                {i}
+            </div>
+
+
             bricks.push(brickDiv)
         }
 
