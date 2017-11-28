@@ -3,21 +3,21 @@ import ReactDOM from 'react-dom'
 import _ from 'lodash'
 
 import { AppContainer } from 'react-hot-loader'
-import Test from 'Components/test'
+import MainScreen from 'Components/mainScreen'
 import style from 'Styles/main.css'
 
-const render = (Test) => ReactDOM.render(
+const render = (MainScreen) => ReactDOM.render(
     <AppContainer>
-        <Test />
+        <MainScreen />
     </AppContainer>,
     document.getElementById('root')
 )
 
 if (module.hot) {
-    module.hot.accept('Components/test', function () {
-        console.log('Accepting the updated test module!');
-        render(Test);
+    module.hot.accept('Components/mainScreen', function () {
+        console.log('Accepting the updated MainScreen module!');
+        render(MainScreen);
     })
 }
 
-render(Test);
+render(MainScreen);

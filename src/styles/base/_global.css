@@ -2,5 +2,4 @@ $background: red;
 
 body {
     background-color: $background;
-    border: 10px solid red;
 }
