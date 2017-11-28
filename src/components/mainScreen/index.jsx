@@ -2,28 +2,30 @@ import React from 'react'
 
 import style from './style.css'
 
-let levelSize = [4, 4]
+let levelSize = [20, 15]
+
+let levelWidth = levelSize[0]
+let levelHeight = levelSize[1]
+let maxSize = Math.max(levelWidth, levelHeight)
+
+let height = (32 * levelHeight)
+let width = (32 * levelWidth)
 
 const generateLevel = (levelSize) => {
     const bricks  = []
 
     const generate = (levelSize) => {
-        let levelWidth = parseInt(levelSize[0])
-        let levelHeight = parseInt(levelSize[1])
+        
         let totalBricks = levelWidth * levelHeight
 
-        let height = (100/levelHeight) + '%'
-        
+
+        let brickDiv = <div
+            className={style['brick']}
+        >
+        </div>
+
         for (let i = 0; i < totalBricks; i++) {
-            bricks.push(<div
-                className={style['brick']}
-                style={{
-                    'height': (100/levelHeight) + '%',
-                    'width': (100/levelWidth) + '%',
-                }}
-            >
-                dupa
-            </div>)
+            bricks.push(brickDiv)
         }
 
         return bricks
@@ -31,7 +33,7 @@ const generateLevel = (levelSize) => {
 
     levelSize.length === 2
         ? generate(levelSize)
-        : console.log('something is wrong', levelSize)
+        : console.log('something went wrong', levelSize)
 
     return bricks
 }
@@ -42,7 +44,13 @@ export default class MainScreen extends React.Component {
 
         return <div className={style['body']}>
             <div className={style['mainWindow']}>
-                <div className={style['top']}>
+                <div
+                    className={style['top']}
+                    style={{
+                        'height': height,
+                        'width': width,
+                    }}
+                >
                     {generateLevel(levelSize)}
                 </div>
                 <div className={style['bottom']}>

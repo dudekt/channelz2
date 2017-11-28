@@ -3,6 +3,8 @@
 $maxHeight: 512px;
 $maxWidth: 640px;
 
+$brickSize: 32px;
+
 $panelHeight: 32px;
 
 .body {
@@ -15,7 +17,7 @@ $panelHeight: 32px;
     justify-content: center;
 
     .mainWindow {
-        outline: 1px solid blue;
+        outline: 1px solid green;
 
         display: flex;
         flex-direction: column;
@@ -31,9 +33,8 @@ $panelHeight: 32px;
     }
 
     .top {
-        border: 2px solid red;
-
-        align-self: stretch;
+        align-content: center;
+        align-self: center;
         display: flex;
         flex-wrap: wrap;
         flex: 1 1 auto;
@@ -42,30 +43,25 @@ $panelHeight: 32px;
         width: 100%;
 
         .brick {
-            outline: 1px solid red;
+            outline: 1px dotted red;
 
             align-items: center;
             display: flex;
-            flex: 0 0 auto;
-            // height: 25vh;
+            flex-grow: 0;
+            flex-shrink: 0;
             justify-content: center;
-            // width: 25vh;
+            height: $brickSize;
+            width: $brickSize;
         }
 
     }
 
     .bottom {
-        border: 1px solid deeppink;
+        outline: 1px solid deeppink;
 
         align-self: flex-end;
         flex: 0 0 auto;
         height: $panelHeight;
         width: 100%;
     }
-}
-
-.brick {
-    border: 1px dotted red;
-    height: 32px;
-    width: 32px;
 }
