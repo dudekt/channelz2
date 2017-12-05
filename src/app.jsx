@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 import { AppContainer } from 'react-hot-loader'
 import MainScreen from 'Components/mainScreen'
-import style from 'Styles/main.css'
+import style from 'Styles/main.scss'
 
 const render = (MainScreen) => ReactDOM.render(
     <AppContainer>

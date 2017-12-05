@@ -23,27 +23,28 @@ module.exports = {
                 }
             },
             {
-                test: /\.css$/,
+                test: /\.scss$/,
                 exclude: /node_modules/,
                 use: [{
                         loader: 'style-loader',
                         options: {
                             hmr: true,
                         }
-                    },
-                    {
+                    }, {
                         loader: 'css-loader',
                         options: {
                             modules: true,
                             importLoaders: 1,
                         }
+                    }, {
+                        loader: "sass-loader" // compiles Sass to CSS
                     }
                 ]
             }
         ],
     },
     resolve: {
-        extensions: ['.js', '.jsx', '.css'],
+        extensions: ['.js', '.jsx', '.css', '.scss'],
         alias: {
             Components: path.resolve(__dirname, 'src/components/'),
             Styles: path.resolve(__dirname, 'src/styles/')

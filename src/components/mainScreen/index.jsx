@@ -1,66 +1,41 @@
 import React from 'react'
+import Mousetrap from 'mousetrap'
 
-import style from './style.css'
+import { keyCodes } from 'Components/keyCodes/'
+import style from './style.scss'
 
-let levelSize = [20, 15]
+const words = [
+    'skurwol',
+    'skurwolik',
+    'skurwolix'
+]
 
-let levelWidth = levelSize[0]
-let levelHeight = levelSize[1]
-let maxSize = Math.max(levelWidth, levelHeight)
-
-let height = (32 * levelHeight)
-let width = (32 * levelWidth)
-
-const generateLevel = (levelSize) => {
-    const bricks  = []
-
-    const generate = (levelSize) => {
-        
-        let totalBricks = levelWidth * levelHeight
-
-
-        
-
-        for (let i = 0; i < totalBricks; i++) {
-            let brickDiv = <div
-                className={style['brick']}
-            >
-                {i}
-            </div>
-
-
-            bricks.push(brickDiv)
-        }
-
-        return bricks
-    }
-
-    levelSize.length === 2
-        ? generate(levelSize)
-        : console.log('something went wrong', levelSize)
-
-    return bricks
+const randomWord = () => {
+    return words[Math.floor(Math.random() * words.length)]
 }
 
-export default class MainScreen extends React.Component {
+const word = randomWord()
+const wordLetters = word.split('')
 
+export default class MainScreen extends React.Component {
     render() {
 
         return <div className={style['body']}>
-            <div className={style['mainWindow']}>
-                <div
-                    className={style['top']}
-                    style={{
-                        'height': height,
-                        'width': width,
-                    }}
-                >
-                    {generateLevel(levelSize)}
-                </div>
-                <div className={style['bottom']}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus quidem voluptatibus quo nesciunt dolorem quibusdam neque libero quae ducimus iste fuga illum reprehenderit, aliquam, perferendis, praesentium placeat veniam porro nam.
-                </div>
-            </div>
+            {wordLetters && 
+                wordLetters.map((letter) => {
+                    return [
+                        <span
+                            key={letter}
+                            ref={(node) =>{
+                                Mousetrap.bind(letter, () => {node.classList.add(style.test)})
+                                console.log('dupa', letter)
+                            }}
+                        >
+                            {letter}
+                        </span>
+                    ]
+                })
+            }
         </div>
     }
 }
