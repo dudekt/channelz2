@@ -14,26 +14,36 @@ const randomWord = () => {
     let random = words[Math.floor(Math.random() * words.length)]
     let index = words.indexOf(random)
     console.log(words.splice(index, 1), words)
+    words.splice(index, 1)
 
     return random
 }
 
 let word = randomWord()
-const wordLetters = word.split('')
+
+let wordLetters = word.split('')
 
 export default class MainScreen extends React.Component {
 
     constructor() {
         super();
         this.state = {
+            currentWord: '',
             typedLetter: ''
         }
-    }    
+    }
+
+    componenWillMount() {
+        this.setState({
+            currentWord: wordLetters.join('')
+        })
+    }
 
     componentDidMount() {
         document.addEventListener('keydown', (e) => {
             let letterLength = wordLetters.length
-            console.log(letterLength, this.state.typedLetter.length)
+
+            console.log('skurwol', )
             if (keyCodes[e.keyCode] === wordLetters[this.state.typedLetter.length]) {
                 keyCodes[e.keyCode]
                 this.setState({
@@ -42,6 +52,8 @@ export default class MainScreen extends React.Component {
 
                 if (letterLength === this.state.typedLetter.length) {
                     console.log('nowe słowo')
+                    document.getElementById('chuj').innerHTML = ''
+                    let word = randomWord()
                 }
 
             } else {
@@ -53,7 +65,7 @@ export default class MainScreen extends React.Component {
     }
 
     render() {
-        return <div className={style['body']}>
+        return <div id='chuj' className={style.body}>
             {wordLetters.map((letter, index) => {
 
                 let letterLength = wordLetters.length
