@@ -19,10 +19,6 @@ const randomWord = () => {
     return random
 }
 
-let word = randomWord()
-
-let wordLetters = word.split('')
-
 export default class MainScreen extends React.Component {
 
     constructor() {
@@ -35,9 +31,7 @@ export default class MainScreen extends React.Component {
     }
 
     componenWillMount() {
-        this.setState({
-            currentWord: wordLetters.join('')
-        })
+        generateWord()
     }
 
     componentDidMount() {
@@ -63,6 +57,15 @@ export default class MainScreen extends React.Component {
                     typedLetter: '',
                 })
             }
+        })
+    }
+
+    generateWord() {
+        let word = randomWord()
+        let wordLetters = word.split('')
+
+        this.setState({
+            currentWord: wordLetters.join('')
         })
     }
 
