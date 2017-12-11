@@ -28,8 +28,9 @@ export default class MainScreen extends React.Component {
     constructor() {
         super();
         this.state = {
+            mistakeLength: 0,
             currentWord: '',
-            typedLetter: ''
+            typedLetter: '',
         }
     }
 
@@ -58,7 +59,8 @@ export default class MainScreen extends React.Component {
 
             } else {
                 this.setState({
-                    typedLetter: ''
+                    mistakeLength: this.state.mistakeLength + 1,
+                    typedLetter: '',
                 })
             }
         })
