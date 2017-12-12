@@ -3,7 +3,7 @@ const webpack = require('webpack');
 
 module.exports = {
     entry: [
-        'react-hot-loader/patch',
+        // 'react-hot-loader/patch',
         './src/app'
     ],
     output: {
@@ -17,7 +17,7 @@ module.exports = {
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        plugins: ['react-hot-loader/babel'],
+                        plugins: ['react-hot-loader/babel', 'transform-class-properties'],
                         presets: ['@babel/preset-react']
                     }
                 }

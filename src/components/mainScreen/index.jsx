@@ -1,21 +1,25 @@
 import React from 'react'
+import FlipMove from 'react-flip-move'
 import Mousetrap from 'mousetrap'
 
 import { keyCodes } from 'Components/keyCodes/'
 import style from './style.scss'
 
 let wordsCollection = [
-    'skurwol',
-    'skurwolik',
-    'skurwolix'
+    'aaa',
+    'aaaa',
+    'aaaaa'
 ]
 
 const randomWord = () => {
-    let random = wordsCollection[Math.floor(Math.random() * wordsCollection.length)]
-    let index = wordsCollection.indexOf(random)
-    wordsCollection.splice(index, 1)
-
-    return random
+    if (wordsCollection.length > 0) {
+        let random = wordsCollection[Math.floor(Math.random() * wordsCollection.length)]
+        let index = wordsCollection.indexOf(random)
+        wordsCollection.splice(index, 1)
+        return random
+    } else {
+        return undefined
+    }
 }
 
 export default class MainScreen extends React.Component {
@@ -29,46 +33,16 @@ export default class MainScreen extends React.Component {
         }
     }
 
-    // componentWillMount() {
-    //     this.generateWord()
-    // }
-
     componentWillMount() {
-        const word = randomWord();
-        this.setState({
-            currentWord: word,
-        });
+        this.generateWord()
+    }
 
-        console.log('skurwol', wordsCollection)
-
+    componentWillUnmount() {
+        this.removeListener()
     }
 
     componentDidMount() {
-        document.addEventListener('keydown', (e) => {
-            let letterLength = this.state.currentWord.split('').length
-
-            if (keyCodes[e.keyCode] === this.state.currentWord.split('')[this.state.typedLetter.length]) {
-                keyCodes[e.keyCode]
-                this.setState({
-                    typedLetter: this.state.typedLetter + keyCodes[e.keyCode]
-                })
-
-                if (letterLength === this.state.typedLetter.length) {
-                    document.getElementById('wordContainer').innerHTML = ''
-
-                    console.log('nowe słowo')
-                    this.setState({
-                        currentWord: randomWord()
-                    });
-                }
-
-            } else {
-                this.setState({
-                    mistakeCount: this.state.mistakeCount + 1,
-                    typedLetter: '',
-                })
-            }
-        })
+        document.addEventListener('keydown', this.writeWord)
     }
 
     generateWord() {
@@ -76,36 +50,72 @@ export default class MainScreen extends React.Component {
         let wordLetters = word.split('')
 
         this.setState({
-            currentWord: wordLetters.join('')
+            currentWord: wordLetters
         })
     }
 
+    writeWord = (e) => {
+        let letterLength = this.state.currentWord.length
+        if (keyCodes[e.keyCode] === this.state.currentWord[this.state.typedLetter.length]) {
+            keyCodes[e.keyCode]
+            this.setState({
+                typedLetter: this.state.typedLetter + keyCodes[e.keyCode]
+            })
+
+            if (letterLength === this.state.typedLetter.length) {
+
+                let newWord = randomWord()
+
+                console.log('nowe słowo')
+
+                if (newWord !== undefined) {
+                    this.setState({
+                        currentWord: newWord.split(''),
+                        typedLetter: '',
+                    });
+                } else {
+                    this.removeListener()
+                }
+            }
+        } else {
+            this.setState({
+                mistakeCount: this.state.mistakeCount + 1,
+                typedLetter: '',
+            })
+        }
+    }
+
+    removeListener() {
+        document.removeEventListener('keydown', this.writeWord)
+    }
+
     render() {
-        let wordLetters = this.state.currentWord.split('')
-
-        console.log('skurwol', wordLetters)
-        
         return <div id='wordContainer' className={style.body}>
-            {wordLetters.map((letter, index) => {
+            <FlipMove>
+                <span key={this.state.currentWord.join('')}>
+                    {this.state.currentWord.map((letter, index) => {
+                        let letterLength = this.state.currentWord.length
+                        return [
+                            <span
+                                key={letter}
+                                className={this.state.typedLetter.includes(this.state.currentWord.slice(0, index + 1).join(''))
+                                    ? style.test
+                                    : ''
+                                }
+                                style={{
+                                    fontSize: `${200 / letterLength}vh`
+                                }}
+                            >
+                                {letter}
+                            </span>
+                        ]
+                    })}
+                </span>
+            </FlipMove>
 
-                let letterLength = wordLetters.length
-                console.log(letterLength)
-
-                return [
-                    <span
-                        key={letter}
-                        className={this.state.typedLetter.includes(wordLetters.slice(0, index + 1).join(''))
-                            ? style.test
-                            : ''
-                        }
-                        style={{
-                            fontSize: `${200 / letterLength}vh`
-                        }}
-                    >
-                        {letter}
-                    </span>
-                ]
-            })}
+            <div className={style.mistakeCount}>
+                {this.state.mistakeCount}
+            </div>
         </div>
     }
 }

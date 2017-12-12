@@ -17,6 +17,7 @@
     "@babel/preset-react": "^7.0.0-beta.32",
     "awesome-typescript-loader": "^3.4.0",
     "babel-loader": "^8.0.0-beta.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.7",
     "extract-text-webpack-plugin": "^3.0.2",
@@ -32,6 +33,7 @@
     "mousetrap": "^1.6.1",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
+    "react-flip-move": "^2.10.0",
     "react-hot-loader": "^3.1.3"
   }
 }
