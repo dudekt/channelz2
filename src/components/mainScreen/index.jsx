@@ -23,34 +23,48 @@ export default class MainScreen extends React.Component {
     constructor() {
         super();
         this.state = {
-            mistakeLength: 0,
+            mistakeCount: 0,
             currentWord: '',
             typedLetter: '',
         }
     }
 
-    componenWillMount() {
-        generateWord()
+    // componentWillMount() {
+    //     this.generateWord()
+    // }
+
+    componentWillMount() {
+        const word = randomWord();
+        this.setState({
+            currentWord: word,
+        });
+
+        console.log('skurwol', wordsCollection)
+
     }
 
     componentDidMount() {
         document.addEventListener('keydown', (e) => {
-            let letterLength = wordLetters.length
+            let letterLength = this.state.currentWord.split('').length
 
-            if (keyCodes[e.keyCode] === wordLetters[this.state.typedLetter.length]) {
+            if (keyCodes[e.keyCode] === this.state.currentWord.split('')[this.state.typedLetter.length]) {
                 keyCodes[e.keyCode]
                 this.setState({
                     typedLetter: this.state.typedLetter + keyCodes[e.keyCode]
                 })
 
                 if (letterLength === this.state.typedLetter.length) {
+                    document.getElementById('wordContainer').innerHTML = ''
+
                     console.log('nowe słowo')
-                    let word = randomWord()
+                    this.setState({
+                        currentWord: randomWord()
+                    });
                 }
 
             } else {
                 this.setState({
-                    mistakeLength: this.state.mistakeLength + 1,
+                    mistakeCount: this.state.mistakeCount + 1,
                     typedLetter: '',
                 })
             }
@@ -67,7 +81,11 @@ export default class MainScreen extends React.Component {
     }
 
     render() {
-        return <div className={style.body}>
+        let wordLetters = this.state.currentWord.split('')
+
+        console.log('skurwol', wordLetters)
+        
+        return <div id='wordContainer' className={style.body}>
             {wordLetters.map((letter, index) => {
 
                 let letterLength = wordLetters.length
