@@ -2,25 +2,9 @@ import React from 'react'
 import FlipMove from 'react-flip-move'
 import Mousetrap from 'mousetrap'
 
+import { randomWord } from 'Components/randomWord/'
 import { keyCodes } from 'Components/keyCodes/'
 import style from './style.scss'
-
-let wordsCollection = [
-    'aaa',
-    'aaaa',
-    'aaaaa'
-]
-
-const randomWord = () => {
-    if (wordsCollection.length > 0) {
-        let random = wordsCollection[Math.floor(Math.random() * wordsCollection.length)]
-        let index = wordsCollection.indexOf(random)
-        wordsCollection.splice(index, 1)
-        return random
-    } else {
-        return undefined
-    }
-}
 
 export default class MainScreen extends React.Component {
 
