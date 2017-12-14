@@ -1,5 +1,4 @@
 import React from 'react'
-import FlipMove from 'react-flip-move'
 import Mousetrap from 'mousetrap'
 
 import { randomWord } from 'Components/randomWord/'
@@ -14,6 +13,7 @@ export default class MainScreen extends React.Component {
             mistakeCount: 0,
             currentWord: '',
             typedLetter: '',
+            endTyping: false,
         }
     }
 
@@ -59,6 +59,9 @@ export default class MainScreen extends React.Component {
                     });
                 } else {
                     this.removeListener()
+                    this.setState({
+                        endTyping: true,
+                    });
                 }
             }
         } else {
@@ -74,9 +77,10 @@ export default class MainScreen extends React.Component {
     }
 
     render() {
+
         return <div id='wordContainer' className={style.body}>
-            <FlipMove>
-                <span key={this.state.currentWord.join('')}>
+            {!this.state.endTyping
+                ? <span key={this.state.currentWord.join('')}>
                     {this.state.currentWord.map((letter, index) => {
                         let letterLength = this.state.currentWord.length
                         return [
@@ -95,7 +99,8 @@ export default class MainScreen extends React.Component {
                         ]
                     })}
                 </span>
-            </FlipMove>
+                : <span>koniec</span>
+            }
 
             <div className={style.mistakeCount}>
                 {this.state.mistakeCount}
