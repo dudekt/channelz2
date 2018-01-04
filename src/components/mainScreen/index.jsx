@@ -3,12 +3,14 @@ import Mousetrap from 'mousetrap'
 
 import { randomWord } from 'Components/randomWord/'
 import { keyCodes } from 'Components/keyCodes/'
+import EndScreen from 'Components/endScreen/'
 import style from './style.scss'
+import endScreen from '../endScreen/index';
 
 export default class MainScreen extends React.Component {
 
     constructor() {
-        super();
+        super()
         this.state = {
             mistakeCount: 0,
             currentWord: '',
@@ -80,31 +82,39 @@ export default class MainScreen extends React.Component {
 
         return <div id='wordContainer' className={style.body}>
             {!this.state.endTyping
-                ? <span key={this.state.currentWord.join('')}>
-                    {this.state.currentWord.map((letter, index) => {
-                        let letterLength = this.state.currentWord.length
-                        return [
-                            <span
-                                key={letter}
-                                className={this.state.typedLetter.includes(this.state.currentWord.slice(0, index + 1).join(''))
-                                    ? style.test
-                                    : ''
-                                }
-                                style={{
-                                    fontSize: `${200 / letterLength}vh`
-                                }}
-                            >
-                                {letter}
-                            </span>
-                        ]
-                    })}
-                </span>
-                : <span>koniec</span>
+                ? <div>
+                    <span key={this.state.currentWord.join('')}>
+                        {this.state.currentWord.map((letter, index) => {
+                            let letterLength = this.state.currentWord.length
+                            return [
+                                <span
+                                    key={letter}
+                                    className={this.state.typedLetter.includes(this.state.currentWord.slice(0, index + 1).join(''))
+                                        ? style.test
+                                        : ''
+                                    }
+                                    style={{
+                                        fontSize: `${200 / letterLength}vh`
+                                    }}
+                                >
+                                    {letter}
+                                </span>
+                            ]
+                        })}
+                    </span>
+                    <div
+                        className={style.mistakeCount}
+                        style={{
+                            fontSize: '6vh'
+                        }}
+                    >
+                        Błędy: {this.state.mistakeCount}
+                    </div>
+                </div>
+                : <EndScreen />
             }
 
-            <div className={style.mistakeCount}>
-                {this.state.mistakeCount}
-            </div>
+            
         </div>
     }
 }
