@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { randomWord, resetWords } from 'Components/randomWord/'
 import style from './style.scss'
 
 export default class endScreen extends React.Component {
@@ -10,7 +9,6 @@ export default class endScreen extends React.Component {
         }
     
         componentWillMount() {
-            resetWords()
         }
     
         componentWillUnmount() {
@@ -22,10 +20,10 @@ export default class endScreen extends React.Component {
         render() {
     
             return <div className={style.body}>
-                dupsko
+                skurwol
                 
                 <button
-                    onClick={() => randomWord()}
+                    onClick={this.props.resetWords}
                 >
                     jeszcze raz
                 </button>

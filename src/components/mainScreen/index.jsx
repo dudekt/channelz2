@@ -1,7 +1,7 @@
 import React from 'react'
 import Mousetrap from 'mousetrap'
 
-import { randomWord } from 'Components/randomWord/'
+import { wordsCollection } from 'Components/randomWord/'
 import { keyCodes } from 'Components/keyCodes/'
 import EndScreen from 'Components/endScreen/'
 import style from './style.scss'
@@ -12,6 +12,7 @@ export default class MainScreen extends React.Component {
     constructor() {
         super()
         this.state = {
+            wordsArray: [...wordsCollection],
             mistakeCount: 0,
             currentWord: '',
             typedLetter: '',
@@ -28,11 +29,24 @@ export default class MainScreen extends React.Component {
     }
 
     componentDidMount() {
-        document.addEventListener('keydown', this.writeWord)
+        this.addListener()
+    }
+
+    randomWord() {
+        let wordsCollection = this.state.wordsArray
+
+        if (wordsCollection.length > 0) {
+            let random = wordsCollection[Math.floor(Math.random() * wordsCollection.length)]
+            let index = wordsCollection.indexOf(random)
+            wordsCollection.splice(index, 1)
+            return random
+        } else {
+            return undefined
+        }
     }
 
     generateWord() {
-        let word = randomWord()
+        let word = this.randomWord()
         let wordLetters = word.split('')
 
         this.setState({
@@ -50,9 +64,7 @@ export default class MainScreen extends React.Component {
 
             if (letterLength === this.state.typedLetter.length) {
 
-                let newWord = randomWord()
-
-                console.log('nowe słowo')
+                let newWord = this.randomWord()
 
                 if (newWord !== undefined) {
                     this.setState({
@@ -72,6 +84,10 @@ export default class MainScreen extends React.Component {
                 typedLetter: '',
             })
         }
+    }
+
+    addListener() {
+        document.addEventListener('keydown', this.writeWord)
     }
 
     removeListener() {
@@ -111,7 +127,17 @@ export default class MainScreen extends React.Component {
                         Błędy: {this.state.mistakeCount}
                     </div>
                 </div>
-                : <EndScreen />
+                : <EndScreen
+                    resetWords={() => this.setState({
+                        wordsArray: [...wordsCollection],
+                        endTyping: false,
+                        typedLetter: '',
+                        mistakeCount: 0,
+                    }, () => {
+                        this.generateWord()
+                        this.addListener()
+                    })}
+                />
             }
 
             
