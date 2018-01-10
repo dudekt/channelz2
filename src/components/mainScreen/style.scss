@@ -2,66 +2,61 @@
 
 $maxHeight: 512px;
 $maxWidth: 640px;
-
 $brickSize: 32px;
-
 $panelHeight: 32px;
+
+@keyframes jello {
+    from,
+    11.1%,
+    to {
+        transform: none;
+    }
+    22.2% {
+        transform: skewX(-12.5deg) skewY(-12.5deg);
+    }
+    33.3% {
+        transform: skewX(6.25deg) skewY(6.25deg);
+    }
+    44.4% {
+        transform: skewX(-3.125deg) skewY(-3.125deg);
+    }
+    55.5% {
+        transform: skewX(1.5625deg) skewY(1.5625deg);
+    }
+    66.6% {
+        transform: skewX(-0.78125deg) skewY(-0.78125deg);
+    }
+    77.7% {
+        transform: skewX(0.390625deg) skewY(0.390625deg);
+    }
+    88.8% {
+        transform: skewX(-0.1953125deg) skewY(-0.1953125deg);
+    }
+}
+
+.jello {
+    animation-name: jello;
+    transform-origin: center;
+}
 
 .body {
     background-color: #E4E4E4;
-
     align-items: center;
     display: flex;
     flex: 1 0 auto;
     flex-direction: column;
     height: 100%;
     justify-content: center;
-
     .mainWindow {
+        align-content: stretch;
+        align-items: flex-start;
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
         justify-content: flex-start;
-        align-content: stretch;
-        align-items: flex-start;
-
         max-height: $maxHeight;
         height: 100%;
         max-width: $maxWidth;
-        width: 100%;
-    }
-
-    .top {
-        outline: 2px solid #D4D4D4;
-
-        align-content: center;
-        align-self: center;
-        display: flex;
-        flex-wrap: wrap;
-        flex: 1 1 auto;
-        height: 100%;
-        justify-content: center;
-        width: 100%;
-
-        .brick {
-            outline: 1px dashed #D4D4D4;
-
-            align-items: center;
-            color: rgba(0, 0, 0, 0.2);
-            display: flex;
-            flex-grow: 0;
-            flex-shrink: 0;
-            justify-content: center;
-            height: $brickSize;
-            width: $brickSize;
-        }
-
-    }
-
-    .bottom {
-        align-self: flex-end;
-        flex: 0 0 auto;
-        height: $panelHeight;
         width: 100%;
     }
 }
@@ -70,6 +65,17 @@ $panelHeight: 32px;
     text-align: center;
 }
 
-.test {
-    color: red;
+.letter {
+    display: inline-block;
+    position: relative;
+    transition: transform 0.3s;
+    &.test {
+        animation-duration: 0.6s;
+        animation-fill-mode: both;
+        color: red;
+        animation-name: jello;
+        transform-origin: center;
+        // perspective: 100px;
+        // transform: rotateX(25deg) rotateY(25deg);
+    }
 }

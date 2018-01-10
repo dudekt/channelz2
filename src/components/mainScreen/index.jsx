@@ -1,7 +1,8 @@
 import React from 'react'
+import classnames from 'classnames'
 import Mousetrap from 'mousetrap'
 
-import { wordsCollection } from 'Components/randomWord/'
+import { wordsCollection } from 'Components/wordsCollection/'
 import { keyCodes } from 'Components/keyCodes/'
 import EndScreen from 'Components/endScreen/'
 import style from './style.scss'
@@ -105,10 +106,12 @@ export default class MainScreen extends React.Component {
                             return [
                                 <span
                                     key={letter}
-                                    className={this.state.typedLetter.includes(this.state.currentWord.slice(0, index + 1).join(''))
+                                    className={classnames(
+                                        style.letter,
+                                        this.state.typedLetter.includes(this.state.currentWord.slice(0, index + 1).join(''))
                                         ? style.test
                                         : ''
-                                    }
+                                    )}
                                     style={{
                                         fontSize: `${200 / letterLength}vh`
                                     }}
